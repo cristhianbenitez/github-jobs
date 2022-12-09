@@ -4,11 +4,14 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
+        sans: ['Poppins', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif']
       },
       backgroundImage: {
         'searchbar-background': "url('/src/assets/backgroundImg.png')"
+      },
+      colors: {
+        lightGray: '#B9BDCF'
       }
     }
   },

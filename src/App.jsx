@@ -1,21 +1,17 @@
 import React from 'react';
-import { JobsList, SearchBar, Sidebar } from './components';
+import { Routes, Route, Link } from 'react-router-dom';
 
-function App() {
+import { Layout } from './components';
+import { Home, JobDescription } from './pages';
+
+export default function App() {
   return (
-    <div className="container mx-auto lg:px-28">
-      <header>
-        <h1 className="text-2xl font-bold my-8">
-          Github <span className="font-thin">Jobs</span>
-        </h1>
-        <SearchBar />
-      </header>
-      <main className="flex justify-between">
-        <JobsList />
-        <Sidebar />
-      </main>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="job-description/:id" element={<JobDescription />} />
+        {/* <Route path="*" element={<NoMatch />} /> */}
+      </Route>
+    </Routes>
   );
 }
-
-export default App;
