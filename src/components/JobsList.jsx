@@ -9,11 +9,10 @@ export const JobsList = ({
   isLoading,
   prevPage
 }) => {
-  console.log(isLoading);
   if (isLoading) return;
   return (
     <section className="w-2/3 ">
-      {jobsResults.map((props) => {
+      {jobsResults?.map((props) => {
         return (
           <div className="flex items-center justify-between bg-white rounded p-3 mb-8 font-roboto ">
             <div className="flex items-center">

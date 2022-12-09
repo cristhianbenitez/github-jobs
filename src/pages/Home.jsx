@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { JobsList, SearchBar, Sidebar } from '../components';
+import jobsApi from '../helpers/jobsApi';
 
 export const Home = () => {
   const [query, setQuery] = React.useState('');
