@@ -14,4 +14,6 @@ jobsApi.interceptors.request.use((config) => {
   return config;
 });
 
+export const locationApi = axios.create({ baseURL: baseUrl });
+
 export default jobsApi;

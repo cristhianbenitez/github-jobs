@@ -18,12 +18,6 @@ export const JobDescription = ({ jobData, setJobData }) => {
           >
             <BsArrowLeft /> Back to search
           </span>
-          {/* <div>
-            <span className="uppercase text-lightGray text-sm font-bold">
-              How to apply
-            </span>
-            <p></p>
-          </div> */}
         </div>
 
         <div className="w-3/4 font-roboto">
@@ -32,7 +26,7 @@ export const JobDescription = ({ jobData, setJobData }) => {
               {jobData?.title}
             </h2>
             {jobData?.extensions[1]?.includes('time') && (
-              <span className="border border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
+              <span className="border text-center border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
                 {jobData?.extensions[1].replace(/-|–/gi, ' ')}
               </span>
             )}

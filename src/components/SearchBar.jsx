@@ -20,6 +20,7 @@ export const SearchBar = ({ setQuery, setPage }) => {
           <MdWorkOutline className="ml-4 mr-3 fill-slate-400 " />
           <input
             type="text"
+            name="jobs-search"
             className=" w-full h-full placeholder-slate-400 placeholder:text-xs"
             placeholder="Title, companies, expertise or benefits"
             value={inputValue}

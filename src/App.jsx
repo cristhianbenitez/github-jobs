@@ -6,13 +6,14 @@ import jobsApi from './helpers/jobsApi';
 const App = () => {
   const [query, setQuery] = React.useState('');
   const [page, setPage] = React.useState(10);
+  const [location, setLocation] = React.useState('');
   const [jobData, setJobData] = React.useState({});
 
   const { data, isLoading } = useQuery(
-    ['jobs-search', query, page],
+    ['jobs-search', query, page, location],
     async () => {
       const res = await jobsApi.get('/search', {
-        params: { q: query, start: page }
+        params: { q: query, start: page, location: location }
       });
       return res.data;
     },
@@ -35,7 +36,7 @@ const App = () => {
         <main>
           <SearchBar query={query} setQuery={setQuery} setPage={setPage} />
           <div className="flex justify-between gap-8">
-            <Sidebar />
+            <Sidebar setLocation={setLocation} />
             <JobsList
               jobsResults={fiveJobsResults}
               nextPage={nextPage}
