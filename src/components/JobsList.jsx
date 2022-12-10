@@ -10,10 +10,11 @@ export const JobsList = ({
   prevPage,
   setJobData
 }) => {
+  const fiveJobsResults = jobsResults?.slice(5);
   if (isLoading) return;
   return (
     <section className="w-2/3 ">
-      {jobsResults?.map((props) => {
+      {fiveJobsResults?.map((props) => {
         return (
           <div
             className="flex items-end justify-between bg-white rounded p-3 mb-8 font-roboto cursor-pointer"
@@ -37,9 +38,9 @@ export const JobsList = ({
                 <p className="mb-3 text-lg max-w-xs text-[#334680]">
                   {props.title}
                 </p>
-                {props.extensions[1]?.includes('time') && (
+                {props.detected_extensions.schedule_type && (
                   <span className="border border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
-                    {props.extensions[1].replace(/-|–/gi, ' ')}
+                    {props.detected_extensions.schedule_type}
                   </span>
                 )}
               </div>

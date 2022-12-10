@@ -6,12 +6,9 @@ import { useEffectOnce } from '../helpers/useEffectOnce';
 import axios from 'axios';
 import Geonames from 'geonames.js'; /* es module */
 
-export const Sidebar = ({ setLocation }) => {
+export const Sidebar = ({ setLocation, toggleShowFullTimeOnly }) => {
   const [locationName, setLocationName] = React.useState('');
-  const [currentLocation, setCurrentLocation] = React.useState({
-    lat: 0,
-    lon: 0
-  });
+
   const geonamesApi = Geonames({
     username: 'cris0987',
     lan: 'en',
@@ -22,8 +19,6 @@ export const Sidebar = ({ setLocation }) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const { longitude, latitude } = position.coords;
-        setCurrentLocation({ lat: latitude, lon: longitude });
-
         const { geonames } = await geonamesApi.findNearbyPlaceName({
           lat: latitude,
           lng: longitude
@@ -60,9 +55,15 @@ export const Sidebar = ({ setLocation }) => {
 
   return (
     <section className="w-1/3">
-      <div className="mb-8">
+      <div className="mb-8 flex flex-col">
         <label htmlFor="filter" className="text-sm ">
-          <input type="checkbox" name="" id="filter" className="mr-2 w-4 h-4" />
+          <input
+            type="checkbox"
+            name="time"
+            id="full-time"
+            className="mr-2 w-4 h-4"
+            onClick={toggleShowFullTimeOnly}
+          />
           Full time
         </label>
       </div>
@@ -93,7 +94,6 @@ export const Sidebar = ({ setLocation }) => {
 
         <div className="flex flex-col gap-4">
           {data?.map((props) => {
-            console.log(props);
             return (
               props.adminName1 && (
                 <label

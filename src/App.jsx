@@ -8,22 +8,32 @@ const App = () => {
   const [page, setPage] = React.useState(10);
   const [location, setLocation] = React.useState('');
   const [jobData, setJobData] = React.useState({});
+  const [showFullTimeOnly, setShowFullTimeOnly] = React.useState(false);
 
   const { data, isLoading } = useQuery(
     ['jobs-search', query, page, location],
     async () => {
       const res = await jobsApi.get('/search', {
-        params: { q: query, start: page, location: location }
+        params: { q: query, start: page, location: location.toLowerCase() }
       });
-      return res.data;
+      return res.data.jobs_results;
     },
     { enabled: Boolean(query.length > 0) || Boolean(location) }
   );
 
-  const fiveJobsResults = data?.jobs_results.slice(5);
-
   const nextPage = () => setPage(page + 10);
   const prevPage = () => setPage(page - 10);
+
+  const jobsResults = () => {
+    if (showFullTimeOnly) {
+      return data?.filter(
+        (d) => d.detected_extensions.schedule_type === 'Full-time'
+      );
+    }
+    return data;
+  };
+
+  const toggleShowFullTimeOnly = () => setShowFullTimeOnly(!showFullTimeOnly);
 
   return (
     <div className="container mx-auto lg:px-28">
@@ -36,9 +46,12 @@ const App = () => {
         <main>
           <SearchBar query={query} setQuery={setQuery} setPage={setPage} />
           <div className="flex justify-between gap-8">
-            <Sidebar setLocation={setLocation} />
+            <Sidebar
+              setLocation={setLocation}
+              toggleShowFullTimeOnly={toggleShowFullTimeOnly}
+            />
             <JobsList
-              jobsResults={fiveJobsResults}
+              jobsResults={jobsResults()}
               nextPage={nextPage}
               prevPage={prevPage}
               page={page}
