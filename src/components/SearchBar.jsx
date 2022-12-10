@@ -11,9 +11,9 @@ export const SearchBar = ({ setQuery, setPage }) => {
   };
 
   return (
-    <section className="bg-searchbar-background bg-cover bg-center flex justify-center items-center px-[12.5rem] py-10 rounded-lg mb-11">
+    <section className="bg-searchbar-background bg-cover bg-center flex justify-center items-center px-4 lg:px-[12.5rem] py-10 rounded-lg mb-11 ">
       <form
-        className="flex w-[790px] h-[56px] bg-white justify-between rounded"
+        className="flex w-[351px] lg:w-[790px]  h-[56px] bg-white justify-between rounded"
         onSubmit={handleOnSubmit}
       >
         <div className="flex w-full items-center justify-center">
@@ -21,7 +21,7 @@ export const SearchBar = ({ setQuery, setPage }) => {
           <input
             type="text"
             name="jobs-search"
-            className=" w-full h-full placeholder-slate-400 placeholder:text-xs"
+            className=" w-full h-full placeholder-slate-400 placeholder:text-xs mr-4 placeholder-shown:text-ellipsis"
             placeholder="Title, companies, expertise or benefits"
             value={inputValue}
             onChange={(e) => {
@@ -31,7 +31,7 @@ export const SearchBar = ({ setQuery, setPage }) => {
         </div>
         <button
           type="submit"
-          className="bg-[#1E86FF] rounded px-12 py-4 mr-1 my-1 flex items-center text-white"
+          className="bg-[#1E86FF] rounded px-7 md:px-12 py-4 mr-1 my-1 flex items-center text-white"
         >
           Search
         </button>

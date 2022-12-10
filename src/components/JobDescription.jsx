@@ -8,8 +8,8 @@ export const JobDescription = ({ jobData, setJobData }) => {
   }
   return (
     <main>
-      <div className="flex justify-between gap-8">
-        <div className="w-1/4">
+      <div className="flex flex-col lg:flex-row justify-between gap-8">
+        <div className="lg:w-1/4">
           <span
             onClick={() => setJobData({})}
             className="flex items-center cursor-pointer text-[#1E86FF] text-sm gap-4 mb-9"
@@ -18,10 +18,10 @@ export const JobDescription = ({ jobData, setJobData }) => {
           </span>
         </div>
 
-        <div className="w-3/4 font-roboto">
-          <div className="flex items-center mb-2">
+        <div className="lg:w-3/4 font-roboto">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center mb-2">
             <h2 className="text-2xl font-bold text-[#334680] mr-4">
-              {jobData?.title}
+              {jobData.title}
             </h2>
             <span className="border text-center border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
               {jobData.detected_extensions.schedule_type}

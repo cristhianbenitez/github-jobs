@@ -54,7 +54,7 @@ export const Sidebar = ({ setLocation, toggleShowFullTimeOnly }) => {
   };
 
   return (
-    <section className="w-1/3">
+    <section className="lg:w-1/3">
       <div className="mb-8 flex flex-col">
         <label htmlFor="filter" className="text-sm ">
           <input
@@ -70,7 +70,7 @@ export const Sidebar = ({ setLocation, toggleShowFullTimeOnly }) => {
       <div>
         <label
           htmlFor="location"
-          className="flex flex-col gap-4 uppercase text-lightGray mb-10"
+          className="flex flex-col gap-4 uppercase text-sm tracking-wide text-lightGray mb-10"
         >
           <span className="font-bold">Location</span>
           <form

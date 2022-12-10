@@ -13,12 +13,11 @@ export const JobsList = ({
   const fiveJobsResults = jobsResults?.slice(5);
   if (isLoading) return;
   return (
-    <section className="w-2/3 ">
+    <section className="lg:w-2/3 ">
       {fiveJobsResults?.map((props) => {
-        console.log(props);
         return (
           <div
-            className="flex items-end justify-between bg-white rounded p-3 mb-8 font-roboto cursor-pointer"
+            className="flex flex-col sm:flex-row sm:items-end sm:justify-between bg-white rounded p-3 mb-8 font-roboto cursor-pointer shadow-sm"
             onClick={() => setJobData(props)}
             key={props.company_name}
           >
@@ -32,11 +31,11 @@ export const JobsList = ({
                   </div>
                 )}
               </div>
-              <div>
+              <div className="mb-7 sm:mb-0">
                 <span className="font-bold  text-xs mb-2 text-[#334680]">
                   {props.company_name}
                 </span>
-                <p className="mb-3 text-lg max-w-xs text-[#334680]">
+                <p className="mb-3 sm:text-lg max-w-xs text-[#334680]">
                   {props.title}
                 </p>
                 <span className="border border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
@@ -44,7 +43,7 @@ export const JobsList = ({
                 </span>
               </div>
             </div>
-            <div className="text-lightGray flex text-xs font-medium">
+            <div className="ml-14 sm:ml-0 text-lightGray flex text-xs font-medium">
               <span className="flex gap-2 mr-7">
                 <BiWorld />
                 {props.location}

@@ -16,6 +16,7 @@ const App = () => {
       const res = await jobsApi.get('/search', {
         params: { q: query, start: page, location: location.toLowerCase() }
       });
+      console.log(res.data);
       return res.data.jobs_results;
     },
     { enabled: Boolean(query.length > 0) || Boolean(location) }
@@ -36,7 +37,7 @@ const App = () => {
   const toggleShowFullTimeOnly = () => setShowFullTimeOnly(!showFullTimeOnly);
 
   return (
-    <div className="container mx-auto lg:px-28">
+    <div className="container mx-auto lg:px-28 px-3">
       <header>
         <h1 className="text-2xl font-bold my-8">
           Github <span className="font-thin">Jobs</span>
@@ -45,7 +46,7 @@ const App = () => {
       {!jobData.title ? (
         <main>
           <SearchBar query={query} setQuery={setQuery} setPage={setPage} />
-          <div className="flex justify-between gap-8">
+          <div className="flex justify-between gap-8 flex-col lg:flex-row">
             <Sidebar
               setLocation={setLocation}
               toggleShowFullTimeOnly={toggleShowFullTimeOnly}
