@@ -23,15 +23,13 @@ export const JobDescription = ({ jobData, setJobData }) => {
             <h2 className="text-2xl font-bold text-[#334680] mr-4">
               {jobData?.title}
             </h2>
-            {jobData?.extensions[1]?.includes('time') && (
-              <span className="border text-center border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
-                {jobData?.extensions[1].replace(/-|–/gi, ' ')}
-              </span>
-            )}
+            <span className="border text-center border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
+              {jobData.detected_extensions.schedule_type}
+            </span>
           </div>
           <span className="flex gap-2 text-lightGray text-xs font- mb-8">
             <BiTimeFive />
-            {jobData?.extensions[0]}
+            {jobData.detected_extensions.posted_at || 'Unknown'}
           </span>
 
           <div className="flex items-center mb-8">

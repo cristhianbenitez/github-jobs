@@ -15,6 +15,7 @@ export const JobsList = ({
   return (
     <section className="w-2/3 ">
       {fiveJobsResults?.map((props) => {
+        console.log(props);
         return (
           <div
             className="flex items-end justify-between bg-white rounded p-3 mb-8 font-roboto cursor-pointer"
@@ -38,11 +39,9 @@ export const JobsList = ({
                 <p className="mb-3 text-lg max-w-xs text-[#334680]">
                   {props.title}
                 </p>
-                {props.detected_extensions.schedule_type && (
-                  <span className="border border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
-                    {props.detected_extensions.schedule_type}
-                  </span>
-                )}
+                <span className="border border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
+                  {props.detected_extensions.schedule_type}
+                </span>
               </div>
             </div>
             <div className="text-lightGray flex text-xs font-medium">
@@ -52,7 +51,7 @@ export const JobsList = ({
               </span>
               <span className="flex gap-2">
                 <BiTimeFive />
-                {props.extensions[0]}
+                {props.detected_extensions.posted_at || 'Unknown'}
               </span>
             </div>
           </div>
