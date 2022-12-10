@@ -47,7 +47,7 @@ const App = () => {
           </div>
         </main>
       ) : (
-        <JobDescription jobData={jobData} />
+        <JobDescription jobData={jobData} setJobData={setJobData} />
       )}
     </div>
   );

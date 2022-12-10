@@ -1,27 +1,38 @@
 import React from 'react';
 import { BiWorld, BiTimeFive } from 'react-icons/bi';
+import { BsArrowLeft } from 'react-icons/bs';
 
-export const JobDescription = ({ jobData }) => {
+export const JobDescription = ({ jobData, setJobData }) => {
+  console.log(jobData);
+
   function createDescription() {
     return { __html: jobData.description.replace(/(?:\r\n|\r|\n)/g, '<br/>') };
   }
-  console.log();
   return (
     <main>
       <div className="flex justify-between gap-8">
-        <div>
-          <span></span>
-          <div>
-            <span></span>
+        <div className="w-1/4">
+          <span
+            onClick={() => setJobData({})}
+            className="flex items-center cursor-pointer text-[#1E86FF] text-sm gap-4 mb-9"
+          >
+            <BsArrowLeft /> Back to search
+          </span>
+          {/* <div>
+            <span className="uppercase text-lightGray text-sm font-bold">
+              How to apply
+            </span>
             <p></p>
-          </div>
+          </div> */}
         </div>
 
-        <div className="font-roboto">
-          <div className="flex items-center">
-            <h2 className="job-title">{jobData?.title}</h2>
+        <div className="w-3/4 font-roboto">
+          <div className="flex items-center mb-2">
+            <h2 className="text-2xl font-bold text-[#334680] mr-4">
+              {jobData?.title}
+            </h2>
             {jobData?.extensions[1]?.includes('time') && (
-              <span className="job-time">
+              <span className="border border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
                 {jobData?.extensions[1].replace(/-|–/gi, ' ')}
               </span>
             )}
@@ -31,7 +42,7 @@ export const JobDescription = ({ jobData }) => {
             {jobData?.extensions[0]}
           </span>
 
-          <div className="flex items-center">
+          <div className="flex items-center mb-8">
             <div className="w-[40px] h-[40px] mr-4">
               {jobData?.thumbnail ? (
                 <img src={jobData?.thumbnail} className="w-full object-cover" />
@@ -42,14 +53,20 @@ export const JobDescription = ({ jobData }) => {
               )}
             </div>
             <div className="flex flex-col justify-between">
-              <span className="company-name">{jobData?.company_name}</span>
-              <span className="flex gap-2 mr-7 text-lightGray text-xs font-medium">
+              <span className="font-bold  text-xs mb-2 text-[#334680]">
+                {jobData?.company_name}
+              </span>
+              <span className="flex gap-2 mr-7 text-lightGray text-xs ">
                 <BiWorld />
                 {jobData?.location}
               </span>
             </div>
           </div>
-          <div dangerouslySetInnerHTML={createDescription()}></div>
+
+          <div
+            dangerouslySetInnerHTML={createDescription()}
+            className="text-[#334680]"
+          ></div>
         </div>
       </div>
     </main>

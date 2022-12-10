@@ -15,43 +15,45 @@ export const JobsList = ({
     <section className="w-2/3 ">
       {jobsResults?.map((props) => {
         return (
-          <a onClick={() => setJobData(props)}>
-            <div className="flex items-end justify-between bg-white rounded p-3 mb-8 font-roboto ">
-              <div className="flex items-center">
-                <div className="w-[40px] h-[40px] mr-4">
-                  {props.thumbnail ? (
-                    <img
-                      src={props.thumbnail}
-                      className="w-full object-cover"
-                    />
-                  ) : (
-                    <div className="text-xs bg-[#F2F2F2] w-full h-full text-lightGray flex justify-center items-center text-center">
-                      not found
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <span className="company-name">{props.company_name}</span>
-                  <p className="job-title">{props.title}</p>
-                  {props.extensions[1]?.includes('time') && (
-                    <span className="job-time">
-                      {props.extensions[1].replace(/-|–/gi, ' ')}
-                    </span>
-                  )}
-                </div>
+          <div
+            className="flex items-end justify-between bg-white rounded p-3 mb-8 font-roboto cursor-pointer"
+            onClick={() => setJobData(props)}
+          >
+            <div className="flex items-center">
+              <div className="w-[40px] h-[40px] mr-4">
+                {props.thumbnail ? (
+                  <img src={props.thumbnail} className="w-full object-cover" />
+                ) : (
+                  <div className="text-xs bg-[#F2F2F2] w-full h-full text-lightGray flex justify-center items-center text-center">
+                    not found
+                  </div>
+                )}
               </div>
-              <div className="text-lightGray flex text-xs font-medium">
-                <span className="flex gap-2 mr-7">
-                  <BiWorld />
-                  {props.location}
+              <div>
+                <span className="font-bold  text-xs mb-2 text-[#334680]">
+                  {props.company_name}
                 </span>
-                <span className="flex gap-2">
-                  <BiTimeFive />
-                  {props.extensions[0]}
-                </span>
+                <p className="mb-3 text-lg max-w-xs text-[#334680]">
+                  {props.title}
+                </p>
+                {props.extensions[1]?.includes('time') && (
+                  <span className="border border-solid border-[#334680] text-xs px-2 py-[0.375rem] rounded font-bold text-[#334680]">
+                    {props.extensions[1].replace(/-|–/gi, ' ')}
+                  </span>
+                )}
               </div>
             </div>
-          </a>
+            <div className="text-lightGray flex text-xs font-medium">
+              <span className="flex gap-2 mr-7">
+                <BiWorld />
+                {props.location}
+              </span>
+              <span className="flex gap-2">
+                <BiTimeFive />
+                {props.extensions[0]}
+              </span>
+            </div>
+          </div>
         );
       })}
       {jobsResults.length && (
