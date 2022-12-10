@@ -18,6 +18,7 @@ export const JobsList = ({
           <div
             className="flex items-end justify-between bg-white rounded p-3 mb-8 font-roboto cursor-pointer"
             onClick={() => setJobData(props)}
+            key={props.company_name}
           >
             <div className="flex items-center">
               <div className="w-[40px] h-[40px] mr-4">

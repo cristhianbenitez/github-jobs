@@ -2,25 +2,51 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { BiWorld } from 'react-icons/bi';
 import { locationApi } from '../helpers/jobsApi';
+import { useEffectOnce } from '../helpers/useEffectOnce';
+import axios from 'axios';
 
 export const Sidebar = ({ setLocation }) => {
   const [locationName, setLocationName] = React.useState('');
+  const [currentLocation, setCurrentLocation] = React.useState({
+    lat: 0,
+    lon: 0
+  });
+
+  useEffectOnce(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { longitude, latitude } = position.coords;
+        setCurrentLocation({ lat: latitude, lon: longitude });
+      });
+    } else {
+      alert('geolocation not available?! What year is this?');
+    }
+  });
 
   const { data, isLoading } = useQuery(
-    ['locations', locationName],
+    ['currentLocation', locationName],
     async () => {
-      const res = await locationApi.get('/locations.json', {
-        params: { q: locationName }
-      });
+      const res = await axios.get(
+        'http://api.geonames.org/findNearestAddressJSON',
+        {
+          params: {
+            lat: currentLocation.lat,
+            lng: currentLocation.lon,
+            username: 'cris0987'
+          }
+        }
+      );
+      setLocation(res.data.address.placename)
       return res.data;
     },
-    { enabled: Boolean(locationName.length > 0) }
+    { enabled: Boolean(currentLocation.lat) }
   );
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (locationName.length > 0) {
       setLocation(locationName);
+      setLocationName('');
     }
   };
 

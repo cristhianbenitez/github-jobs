@@ -4,7 +4,7 @@ import { JobDescription, JobsList, SearchBar, Sidebar } from './components';
 import jobsApi from './helpers/jobsApi';
 
 const App = () => {
-  const [query, setQuery] = React.useState('');
+  const [query, setQuery] = React.useState('front-end');
   const [page, setPage] = React.useState(10);
   const [location, setLocation] = React.useState('');
   const [jobData, setJobData] = React.useState({});

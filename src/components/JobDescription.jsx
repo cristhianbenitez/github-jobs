@@ -3,8 +3,6 @@ import { BiWorld, BiTimeFive } from 'react-icons/bi';
 import { BsArrowLeft } from 'react-icons/bs';
 
 export const JobDescription = ({ jobData, setJobData }) => {
-  console.log(jobData);
-
   function createDescription() {
     return { __html: jobData.description.replace(/(?:\r\n|\r|\n)/g, '<br/>') };
   }
