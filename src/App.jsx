@@ -17,7 +17,7 @@ const App = () => {
       });
       return res.data;
     },
-    { enabled: Boolean(query.length > 0) }
+    { enabled: Boolean(query.length > 0) || Boolean(location) }
   );
 
   const fiveJobsResults = data?.jobs_results.slice(5);

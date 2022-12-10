@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "surge ./dist --domain git-jobs-devchallenge.surge.sh"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.19.1",
     "axios": "^1.2.1",
+    "geonames.js": "^3.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",

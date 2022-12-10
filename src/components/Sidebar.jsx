@@ -4,6 +4,7 @@ import { BiWorld } from 'react-icons/bi';
 import { locationApi } from '../helpers/jobsApi';
 import { useEffectOnce } from '../helpers/useEffectOnce';
 import axios from 'axios';
+import Geonames from 'geonames.js'; /* es module */
 
 export const Sidebar = ({ setLocation }) => {
   const [locationName, setLocationName] = React.useState('');
@@ -11,12 +12,23 @@ export const Sidebar = ({ setLocation }) => {
     lat: 0,
     lon: 0
   });
+  const geonamesApi = Geonames({
+    username: 'cris0987',
+    lan: 'en',
+    encoding: 'JSON'
+  });
 
   useEffectOnce(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition(async (position) => {
         const { longitude, latitude } = position.coords;
         setCurrentLocation({ lat: latitude, lon: longitude });
+
+        const { geonames } = await geonamesApi.findNearbyPlaceName({
+          lat: latitude,
+          lng: longitude
+        });
+        setLocation(geonames[0].adminName1);
       });
     } else {
       alert('geolocation not available?! What year is this?');
@@ -24,22 +36,18 @@ export const Sidebar = ({ setLocation }) => {
   });
 
   const { data, isLoading } = useQuery(
-    ['currentLocation', locationName],
+    ['locations', locationName],
     async () => {
-      const res = await axios.get(
-        'http://api.geonames.org/findNearestAddressJSON',
-        {
-          params: {
-            lat: currentLocation.lat,
-            lng: currentLocation.lon,
-            username: 'cris0987'
-          }
-        }
-      );
-      setLocation(res.data.address.placename)
-      return res.data;
+      const res = await geonamesApi.search({
+        name: locationName,
+        name_startsWith: locationName,
+        style: 'medium',
+        isNameRequired: true,
+        maxRows: 1
+      });
+      return res.geonames;
     },
-    { enabled: Boolean(currentLocation.lat) }
+    { enabled: Boolean(locationName.length > 0) }
   );
 
   const handleSubmit = (e) => {
@@ -84,6 +92,31 @@ export const Sidebar = ({ setLocation }) => {
         </label>
 
         <div className="flex flex-col gap-4">
+          {data?.map((props) => {
+            console.log(props);
+            return (
+              props.adminName1 && (
+                <label
+                  key={props.geonameId}
+                  htmlFor={`option-${props.adminName1}`}
+                  className="font-medium "
+                >
+                  <input
+                    type="radio"
+                    name="location"
+                    id={`option-${props.adminName1}`}
+                    className="mr-4 w-4 h-4"
+                    onClick={(e) => {
+                      setLocation(props.adminName1);
+                      setLocationName('');
+                    }}
+                  />
+                  {props.adminName1}
+                </label>
+              )
+            );
+          })}
+
           {['London', 'Amsterdam', 'New York', 'Berlin'].map((location) => (
             <label
               key={location}
@@ -95,7 +128,10 @@ export const Sidebar = ({ setLocation }) => {
                 name="location"
                 id={`option-${location}`}
                 className="mr-4 w-4 h-4"
-                onClick={(e) => setLocation(location)}
+                onClick={(e) => {
+                  setLocation(location);
+                  setLocationName('');
+                }}
               />
               {location}
             </label>
